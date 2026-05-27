@@ -1,0 +1,360 @@
+:root {
+    --bg: #0a0a0c;
+    --surface: #111115;
+    --surface2: #18181e;
+    --border: #2a2a35;
+    --accent: #e8345a;
+    --accent2: #ff6b35;
+    --accent3: #f5c842;
+    --muted: #555566;
+    --text: #e8e8f0;
+    --text-dim: #9999aa;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --purple: #c084fc;
+    --pink: #f472b6;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+header {
+    padding: 60px 60px 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.header-left .label {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(56px, 9vw, 110px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+}
+.title span {
+    color: var(--accent);
+}
+.subtitle {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 14px;
+    letter-spacing: 0.05em;
+}
+.header-stats {
+    display: flex;
+    gap: 32px;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+.stat-block {
+    text-align: right;
+}
+.stat-value {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--accent);
+}
+.stat-label {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+}
+nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    overflow-x: auto;
+}
+nav button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 18px 28px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+nav button:hover {
+    color: var(--text);
+}
+nav button.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+.panel {
+    display: none;
+    padding: 50px 60px 80px;
+    animation: fadeIn 0.35s ease;
+}
+.panel.active {
+    display: block;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.panel-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 12px;
+}
+.panel-num {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    color: var(--border);
+}
+.panel-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.05em;
+}
+.panel-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    max-width: 640px;
+    line-height: 1.6;
+}
+.insight {
+    background: linear-gradient(
+        135deg,
+        rgba(232, 52, 90, 0.08),
+        rgba(255, 107, 53, 0.05)
+    );
+    border: 1px solid rgba(232, 52, 90, 0.25);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 30px;
+    max-width: 620px;
+}
+.insight strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+.chart-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 30px;
+    position: relative;
+}
+canvas {
+    display: block;
+}
+.tooltip {
+    position: fixed;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 10px 14px;
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--text);
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.15s;
+    line-height: 1.6;
+    max-width: 220px;
+}
+.tooltip.visible {
+    opacity: 1;
+}
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.ctrl-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 1px;
+}
+.ctrl-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+}
+.ctrl-btn.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+.ctrl-sep {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    margin: 0 4px;
+}
+.top10-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.top10-table thead tr {
+    border-bottom: 1px solid var(--border);
+}
+.top10-table th {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 400;
+}
+.top10-table th:first-child {
+    width: 60px;
+    text-align: center;
+}
+.top10-table th:last-child {
+    width: 160px;
+    text-align: right;
+}
+.top10-table tbody tr {
+    border-bottom: 1px solid rgba(42, 42, 53, 0.5);
+    transition: background 0.2s;
+}
+.top10-table tbody tr:hover {
+    background: var(--surface2);
+}
+.top10-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+}
+.top10-table td:first-child {
+    text-align: center;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 28px;
+    color: var(--border);
+    padding: 14px 8px;
+}
+.top10-table tbody tr:nth-child(1) td:first-child {
+    color: var(--accent3);
+}
+.top10-table tbody tr:nth-child(2) td:first-child {
+    color: #aaa;
+}
+.top10-table tbody tr:nth-child(3) td:first-child {
+    color: #c87533;
+}
+.song-name {
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.01em;
+}
+.artist-name {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 3px;
+}
+.explicit-tag {
+    display: inline-block;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    padding: 1px 5px;
+    background: rgba(232, 52, 90, 0.15);
+    border: 1px solid rgba(232, 52, 90, 0.3);
+    color: var(--accent);
+    border-radius: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+.pop-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.pop-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    width: 80px;
+}
+.pop-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pop-num {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    width: 24px;
+}
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+        padding: 30px;
+    }
+    nav {
+        padding: 0 20px;
+    }
+    .panel {
+        padding: 30px 20px 60px;
+    }
+    .panel-num {
+        font-size: 48px;
+    }
+}

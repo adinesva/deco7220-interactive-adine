@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Inside the Noise — Metalcore Deep Dive</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header>
+            <div class="header-left">
+                <div class="label">Spotify Tracks Dataset · 1000 tracks</div>
+                <div class="title">Inside<br />the <span>Noise</span></div>
+                <div class="subtitle">
+                    METALCORE GENRE DEEP DIVE · Adine Sava Nathania · 49847482 ·
+                    DECO7220
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-block">
+                    <div class="stat-value">0.914</div>
+                    <div class="stat-label">
+                        Avg. Energy<br />#1 of 114 genres
+                    </div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-value">0.315</div>
+                    <div class="stat-label">Avg. Valence<br />Bottom 5</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-value">
+                        −4.5<small style="font-size: 20px">dB</small>
+                    </div>
+                    <div class="stat-label">Avg. Loudness</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-value">
+                        29.1<small style="font-size: 20px">%</small>
+                    </div>
+                    <div class="stat-label">Explicit Tracks</div>
+                </div>
+            </div>
+        </header>
+
+        <nav>
+            <button class="active" data-panel="scatter">
+                01 · Energy vs Emotion
+            </button>
+            <button data-panel="sankey">02 · Path to Popularity</button>
+            <button data-panel="slope">03 · DNA of Top Tracks</button>
+            <button data-panel="top10">04 · Top 10 Songs</button>
+        </nav>
+
+        <!-- SCATTER -->
+        <section id="panel-scatter" class="panel active">
+            <div class="panel-header">
+                <span class="panel-num">04</span
+                ><span class="panel-title">Energy vs Emotion</span>
+            </div>
+            <p class="panel-desc">
+                Distribution of 1,000 tracks by energy vs. valence. Color =
+                tempo group. Diamond = explicit. Real Spotify data.
+            </p>
+            <div class="insight">
+                <strong
+                    >Metalcore tracks overwhelmingly cluster at high energy
+                    (0.8–1.0)</strong
+                >
+                while valence skews low (0.0–0.4), confirming the genre's
+                intense yet emotionally dark character. Explicit tracks spread
+                across all valence ranges.
+            </div>
+            <div class="controls">
+                <span
+                    style="
+                        font-family: &quot;DM Mono&quot;, monospace;
+                        font-size: 10px;
+                        color: var(--text-dim);
+                        letter-spacing: 0.1em;
+                    "
+                    >TEMPO</span
+                >
+                <button class="ctrl-btn on" data-filter="all">All</button>
+                <button class="ctrl-btn" data-filter="slow">
+                    Slow &lt;100
+                </button>
+                <button class="ctrl-btn" data-filter="mid">Mid 100–145</button>
+                <button class="ctrl-btn" data-filter="fast">
+                    Fast &gt;145
+                </button>
+                <div class="ctrl-sep"></div>
+                <span
+                    style="
+                        font-family: &quot;DM Mono&quot;, monospace;
+                        font-size: 10px;
+                        color: var(--text-dim);
+                        letter-spacing: 0.1em;
+                    "
+                    >LYRICS</span
+                >
+                <button class="ctrl-btn on" data-lfilter="all">All</button>
+                <button class="ctrl-btn" data-lfilter="clean">Clean</button>
+                <button class="ctrl-btn" data-lfilter="explicit">
+                    Explicit
+                </button>
+            </div>
+            <div class="chart-wrap"><canvas id="scatterCanvas"></canvas></div>
+        </section>
+
+        <!-- SANKEY -->
+        <section id="panel-sankey" class="panel">
+            <div class="panel-header">
+                <span class="panel-num">05</span
+                ><span class="panel-title">Path to Popularity</span>
+            </div>
+            <p class="panel-desc">
+                Flow of 1,000 tracks across tempo, emotional valence tier,
+                lyrical content, and popularity tier.
+            </p>
+            <div class="insight">
+                <strong>Mid-tempo dominates (479 tracks)</strong> and flows
+                primarily into dark emotion. Despite only 29% being explicit,
+                <strong
+                    >explicit tracks punch above their weight in HIGH
+                    POP</strong
+                >
+                — 132 of 365 high-pop tracks are explicit (36%), vs only 233
+                clean tracks reaching high pop.
+            </div>
+            <div class="chart-wrap"><canvas id="sankeyCanvas"></canvas></div>
+        </section>
+
+        <!-- SLOPE -->
+        <section id="panel-slope" class="panel">
+            <div class="panel-header">
+                <span class="panel-num">06</span
+                ><span class="panel-title">DNA of Top Tracks</span>
+            </div>
+            <p class="panel-desc">
+                Audio feature profiles of the 10 most popular tracks across 5
+                normalized dimensions.
+            </p>
+            <div class="insight">
+                <strong
+                    >All top tracks cluster at very high energy
+                    (0.82–0.94)</strong
+                >. Speechiness is uniformly low; danceability varies more than
+                expected. Loudness and valence differentiate the tracks most
+                clearly.
+            </div>
+            <div class="chart-wrap"><canvas id="slopeCanvas"></canvas></div>
+        </section>
+
+        <!-- TOP 10 -->
+        <section id="panel-top10" class="panel">
+            <div class="panel-header">
+                <span class="panel-num">07</span
+                ><span class="panel-title">Top 10 Songs</span>
+            </div>
+            <p class="panel-desc">
+                Ranked by Spotify popularity score (0–100) from the dataset.
+            </p>
+            <div class="chart-wrap" style="padding: 0; overflow: hidden">
+                <table class="top10-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Track</th>
+                            <th style="text-align: right; padding-right: 24px">
+                                Popularity
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="top10Body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="tooltip" id="tooltip"></div>
+
+        <script src="main.js"></script>
+    </body>
+</html>
