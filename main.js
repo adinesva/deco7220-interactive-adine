@@ -17,13 +17,13 @@ const top10Songs = [
 
 // Real normalized audio features from CSV (loudness normalized 0-1 from -20 to 0 dB range)
 const topTrackFeatures = [
-  {name:"Can You Feel My Heart",   artist:"Bring Me The Horizon",       loudness:0.859, valence:0.354, energy:0.859, speechiness:0.060, danceability:0.150},
+  {name:"Can You Feel…",   artist:"Bring Me The Horizon",       loudness:0.859, valence:0.354, energy:0.859, speechiness:0.060, danceability:0.150},
   {name:"FEEL NOTHING",    artist:"The Plot In You",             loudness:0.735, valence:0.226, energy:0.825, speechiness:0.062, danceability:0.448},
   {name:"Popular Monster", artist:"Falling In Reverse",          loudness:0.801, valence:0.358, energy:0.897, speechiness:0.092, danceability:0.461},
   {name:"sTraNgeRs",       artist:"Bring Me The Horizon",        loudness:0.847, valence:0.526, energy:0.939, speechiness:0.182, danceability:0.346},
   {name:"Throne",          artist:"Bring Me The Horizon",        loudness:0.814, valence:0.387, energy:0.888, speechiness:0.099, danceability:0.426},
   {name:"The Rumbling",    artist:"SiM",                         loudness:0.930, valence:0.494, energy:0.878, speechiness:0.069, danceability:0.459},
-  {name:"Voices In My Head", artist:"Falling In Reverse",          loudness:0.847, valence:0.639, energy:0.898, speechiness:0.162, danceability:0.546},
+  {name:"Voices In…Head", artist:"Falling In Reverse",          loudness:0.847, valence:0.639, energy:0.898, speechiness:0.162, danceability:0.546},
   {name:"Drown",           artist:"Bring Me The Horizon",        loudness:0.845, valence:0.240, energy:0.940, speechiness:0.084, danceability:0.405},
   {name:"Kingslayer",      artist:"Bring Me The Horizon",        loudness:0.863, valence:0.428, energy:0.929, speechiness:0.147, danceability:0.434},
   {name:"Another Life",    artist:"Motionless In White",         loudness:0.809, valence:0.495, energy:0.939, speechiness:0.079, danceability:0.390},
@@ -440,6 +440,18 @@ function drawSlope(){
 
 let hoveredDim=null;
 
+function setAfActive(dimIndex){
+  document.querySelectorAll('.af-item').forEach(el=>el.classList.remove('active'));
+  if(dimIndex!=null){
+    const key=dims[dimIndex];
+    const el=document.querySelector(`.af-item[data-dim="${key}"]`);
+    if(el){
+      el.classList.add('active');
+      el.scrollIntoView({block:'nearest',behavior:'smooth'});
+    }
+  }
+}
+
 sl.addEventListener('mousemove',e=>{
   const rect=sl.getBoundingClientRect(),dpr=devicePixelRatio;
   const W=sl.width,H=sl.height;
@@ -457,6 +469,7 @@ sl.addEventListener('mousemove',e=>{
   });
   hoveredLine=foundLine;
   hoveredDim=foundDim;
+  setAfActive(foundDim);
   if(foundLine!=null&&foundDim!=null){
     const t=topTrackFeatures[foundLine];
     const dimKey=dims[foundDim];
@@ -470,7 +483,7 @@ sl.addEventListener('mousemove',e=>{
   } else hideTip();
   drawSlope();
 });
-sl.addEventListener('mouseleave',()=>{hoveredLine=null;hoveredDim=null;hideTip();drawSlope();});
+sl.addEventListener('mouseleave',()=>{hoveredLine=null;hoveredDim=null;setAfActive(null);hideTip();drawSlope();});
 
 // ── TOP 10 ────────────────────────────────────────────────────────────────────
 function buildTop10(){

@@ -52,7 +52,8 @@ header {
     margin-bottom: 12px;
 }
 .title {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
     font-size: clamp(56px, 9vw, 110px);
     line-height: 0.92;
     letter-spacing: 0.02em;
@@ -77,7 +78,8 @@ header {
     text-align: right;
 }
 .stat-value {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
     font-size: 38px;
     line-height: 1;
     color: var(--accent);
@@ -143,13 +145,15 @@ nav button.active {
     margin-bottom: 12px;
 }
 .panel-num {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
     font-size: 72px;
     line-height: 1;
     color: var(--border);
 }
 .panel-title {
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
     font-size: 36px;
     letter-spacing: 0.05em;
 }
@@ -281,7 +285,8 @@ canvas {
 }
 .top10-table td:first-child {
     text-align: center;
-    font-family: "Bebas Neue", sans-serif;
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
     font-size: 28px;
     color: var(--border);
     padding: 14px 8px;
@@ -356,5 +361,227 @@ canvas {
     }
     .panel-num {
         font-size: 48px;
+    }
+}
+
+/* ── SLOPE LAYOUT ─────────────────────────────────────────────────────────── */
+.slope-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.slope-chart {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* ── AUDIO FEATURES PANEL ────────────────────────────────────────────────── */
+.audio-features-panel {
+    flex: 0 0 260px;
+    width: 260px;
+}
+
+.af-heading {
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 12px;
+}
+
+.af-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 0;
+}
+
+.af-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(42, 42, 53, 0.6);
+    cursor: default;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.af-item:last-child {
+    border-bottom: none;
+}
+
+.af-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 2px 0 0 2px;
+    background: transparent;
+    transition: background 0.2s;
+}
+
+.af-item.active {
+    background: rgba(232, 52, 90, 0.07);
+}
+
+.af-item.active::before {
+    background: var(--accent);
+}
+
+.af-title {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+}
+
+.af-icon {
+    font-size: 13px;
+}
+
+.af-body {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.af-detail {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.55;
+}
+
+/* Responsive: stack on narrow screens */
+@media (max-width: 900px) {
+    .slope-layout {
+        flex-direction: column;
+    }
+    .audio-features-panel {
+        flex: none;
+        width: 100%;
+    }
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────────────────── */
+.site-footer {
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.footer-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 36px 60px 40px;
+    flex-wrap: wrap;
+}
+
+.footer-left {
+    flex: 0 0 auto;
+    min-width: 160px;
+}
+
+.footer-name {
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.footer-meta {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.footer-center {
+    flex: 1 1 320px;
+    border-left: 1px solid var(--border);
+    padding-left: 36px;
+}
+
+.footer-dataset-label {
+    display: inline-block;
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(232, 52, 90, 0.1);
+    border: 1px solid rgba(232, 52, 90, 0.25);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+}
+
+.footer-dataset-link {
+    display: block;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+}
+
+.footer-dataset-link:hover {
+    color: var(--accent);
+}
+
+.footer-dataset-copy {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.65;
+    max-width: 520px;
+}
+
+.footer-right {
+    flex: 0 0 auto;
+    text-align: right;
+    margin-left: auto;
+}
+
+.footer-built {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.footer-year {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 700px) {
+    .footer-inner {
+        padding: 30px 20px;
+        flex-direction: column;
+    }
+    .footer-center {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+    }
+    .footer-right {
+        margin-left: 0;
+        text-align: left;
     }
 }

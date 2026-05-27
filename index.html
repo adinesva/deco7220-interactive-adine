@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Inside the Noise — Metalcore Deep Dive</title>
         <link
-            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,700;1,8..60,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
@@ -15,10 +15,6 @@
             <div class="header-left">
                 <div class="label">Spotify Tracks Dataset · 1000 tracks</div>
                 <div class="title">Inside<br />the <span>Noise</span></div>
-                <div class="subtitle">
-                    METALCORE GENRE DEEP DIVE · Adine Sava Nathania · 49847482 ·
-                    DECO7220
-                </div>
             </div>
             <div class="header-stats">
                 <div class="stat-block">
@@ -48,17 +44,17 @@
 
         <nav>
             <button class="active" data-panel="scatter">
-                01 · Energy vs Emotion
+                04 · Energy vs Emotion
             </button>
-            <button data-panel="sankey">02 · Path to Popularity</button>
-            <button data-panel="slope">03 · DNA of Top Tracks</button>
-            <button data-panel="top10">04 · Top 10 Songs</button>
+            <button data-panel="sankey">05 · Path to Popularity</button>
+            <button data-panel="slope">06 · DNA of Top Tracks</button>
+            <button data-panel="top10">07 · Top 10 Songs</button>
         </nav>
 
         <!-- SCATTER -->
         <section id="panel-scatter" class="panel active">
             <div class="panel-header">
-                <span class="panel-num">01</span
+                <span class="panel-num">04</span
                 ><span class="panel-title">Energy vs Emotion</span>
             </div>
             <p class="panel-desc">
@@ -114,7 +110,7 @@
         <!-- SANKEY -->
         <section id="panel-sankey" class="panel">
             <div class="panel-header">
-                <span class="panel-num">02</span
+                <span class="panel-num">05</span
                 ><span class="panel-title">Path to Popularity</span>
             </div>
             <p class="panel-desc">
@@ -137,7 +133,7 @@
         <!-- SLOPE -->
         <section id="panel-slope" class="panel">
             <div class="panel-header">
-                <span class="panel-num">03</span
+                <span class="panel-num">06</span
                 ><span class="panel-title">DNA of Top Tracks</span>
             </div>
             <p class="panel-desc">
@@ -152,18 +148,111 @@
                 expected. Loudness and valence differentiate the tracks most
                 clearly.
             </div>
-            <div class="chart-wrap"><canvas id="slopeCanvas"></canvas></div>
+
+            <div class="slope-layout">
+                <div class="chart-wrap slope-chart">
+                    <canvas id="slopeCanvas"></canvas>
+                </div>
+
+                <aside class="audio-features-panel">
+                    <h3 class="af-heading">Audio Features</h3>
+                    <div class="af-card">
+                        <div class="af-item" data-dim="loudness">
+                            <div class="af-title">
+                                <span class="af-icon">🔊</span> Loudness
+                            </div>
+                            <div class="af-body">
+                                The overall amplitude of a track, measured in
+                                decibels (dB).
+                            </div>
+                            <div class="af-detail">
+                                Higher loudness values indicate louder tracks,
+                                often associated with more energetic or
+                                compressed production styles.
+                            </div>
+                        </div>
+
+                        <div class="af-item" data-dim="valence">
+                            <div class="af-title">
+                                <span class="af-icon">😊</span> Valence
+                            </div>
+                            <div class="af-body">
+                                A measure of musical positivity.
+                            </div>
+                            <div class="af-detail">
+                                Tracks with high valence sound happy, cheerful,
+                                or uplifting, while low valence tracks feel sad,
+                                moody, or tense.
+                            </div>
+                        </div>
+
+                        <div class="af-item" data-dim="energy">
+                            <div class="af-title">
+                                <span class="af-icon">⚡</span> Energy
+                            </div>
+                            <div class="af-body">
+                                A measure of intensity and activity in a track.
+                            </div>
+                            <div class="af-detail">
+                                Higher energy tracks feel fast, loud, and
+                                dynamic, while lower energy tracks are calmer
+                                and more relaxed.
+                            </div>
+                        </div>
+
+                        <div class="af-item" data-dim="speechiness">
+                            <div class="af-title">
+                                <span class="af-icon">🎙</span> Speechiness
+                            </div>
+                            <div class="af-body">
+                                The presence of spoken words in a track.
+                            </div>
+                            <div class="af-detail">
+                                Higher values indicate more spoken content,
+                                while lower values represent purely musical
+                                tracks.
+                            </div>
+                        </div>
+
+                        <div class="af-item" data-dim="danceability">
+                            <div class="af-title">
+                                <span class="af-icon">🕺</span> Danceability
+                            </div>
+                            <div class="af-body">
+                                A measure of how suitable a track is for
+                                dancing.
+                            </div>
+                            <div class="af-detail">
+                                Tracks with high danceability have a clear
+                                rhythm, steady beat, and tempo that make them
+                                easy to move to.
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </section>
 
         <!-- TOP 10 -->
         <section id="panel-top10" class="panel">
             <div class="panel-header">
-                <span class="panel-num">04</span
+                <span class="panel-num">07</span
                 ><span class="panel-title">Top 10 Songs</span>
             </div>
             <p class="panel-desc">
                 Ranked by Spotify popularity score (0–100) from the dataset.
             </p>
+            <div class="insight">
+                <strong>Bring Me The Horizon dominates the top 10</strong>,
+                claiming 5 of the 10 spots — more than any other artist.
+                <strong>6 of the top 10 tracks are explicit</strong>, despite
+                explicit tracks making up only 29% of the full dataset,
+                suggesting bolder lyrical content correlates with higher
+                streaming engagement. The top track,
+                <strong>Can You Feel My Heart</strong>, scores 81 — nearly 10
+                points above the #10 entry, reflecting a clear popularity cliff
+                at the very top.
+            </div>
             <div class="chart-wrap" style="padding: 0; overflow: hidden">
                 <table class="top10-table">
                     <thead>
@@ -181,6 +270,40 @@
         </section>
 
         <div class="tooltip" id="tooltip"></div>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-left">
+                    <div class="footer-name">Adine Sava Nathania</div>
+                    <div class="footer-meta">
+                        Student ID 49847482 · DECO7220
+                    </div>
+                </div>
+                <div class="footer-center">
+                    <span class="footer-dataset-label">Dataset</span>
+                    <a
+                        class="footer-dataset-link"
+                        href="https://www.kaggle.com/datasets/yashdev01/spotify-tracks-dataset"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Spotify Tracks Dataset — Kaggle
+                    </a>
+                    <p class="footer-dataset-copy">
+                        1,000 metalcore tracks with audio features, popularity
+                        scores, and metadata, curated from Spotify's Web API and
+                        published openly on Kaggle. The backbone of every chart
+                        on this page.
+                    </p>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-built">
+                        Built with vanilla HTML, CSS & JS
+                    </div>
+                    <div class="footer-year">© 2025</div>
+                </div>
+            </div>
+        </footer>
 
         <script src="main.js"></script>
     </body>
