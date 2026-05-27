@@ -1,8 +1,20 @@
-# Music Popularity & Audio Features Visualisation
+# Inside the Noise — Metalcore Genre Deep Dive
 
-Interactive data visualisation project exploring relationships between music audio features, emotional characteristics, lyrical explicitness, and song popularity.
+An interactive music data visualisation project exploring the sonic identity of the metalcore genre through audio features, emotional tone, lyrical content, and popularity patterns.
+
+This project transforms Spotify track data into interactive and animated visual experiences to help users better understand the structure, mood, and characteristics of modern metalcore music.
 
 ---
+
+# Project Overview
+
+This project investigates how audio features such as energy, valence, loudness, danceability, speechiness, tempo, and lyrical explicitness shape the identity and popularity of metalcore tracks.
+
+The visualisations were designed to support exploratory analysis through interaction techniques such as:
+- Hover interactions
+- Dynamic highlighting
+- Filtering
+- Progressive disclosure through tooltips
 
 # Chart Overview
 
