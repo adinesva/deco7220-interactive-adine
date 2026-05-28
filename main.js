@@ -34,7 +34,7 @@ const slopeColors = [
   "#c084fc","#f472b6","#fb923c","#a3e635","#38bdf8"
 ];
 
-// Sankey data — exact values from Sheet12.csv
+// Sankey data
 const sankeyData = {
   cols:[
     {label:"BPM ZONE", nodes:[
