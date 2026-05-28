@@ -84,6 +84,9 @@ header {
     line-height: 1;
     color: var(--accent);
 }
+.stat-unit {
+    font-size: 20px;
+}
 .stat-label {
     font-family: "DM Mono", monospace;
     font-size: 10px;
@@ -190,6 +193,10 @@ nav button.active {
     padding: 30px;
     position: relative;
 }
+.chart-wrap-flush {
+    padding: 0;
+    overflow: hidden;
+}
 canvas {
     display: block;
 }
@@ -218,6 +225,12 @@ canvas {
     margin-bottom: 22px;
     flex-wrap: wrap;
     align-items: center;
+}
+.control-label {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
 }
 .ctrl-btn {
     background: var(--surface);
@@ -271,6 +284,10 @@ canvas {
 .top10-table th:last-child {
     width: 160px;
     text-align: right;
+}
+.top10-pop-heading {
+    text-align: right;
+    padding-right: 24px;
 }
 .top10-table tbody tr {
     border-bottom: 1px solid rgba(42, 42, 53, 0.5);
@@ -492,7 +509,7 @@ canvas {
 .footer-name {
     font-family: "Source Serif 4", serif;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 20px;
     letter-spacing: 0.06em;
     color: var(--text);
     margin-bottom: 4px;
@@ -584,4 +601,304 @@ canvas {
         margin-left: 0;
         text-align: left;
     }
+}
+
+/* ── ARTIST FILTER ───────────────────────────────────────────────────────── */
+.artist-filter-wrap {
+    margin-bottom: 20px;
+}
+.artist-filter-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+.artist-filter-label {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+.track-count-badge {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+}
+.track-count-badge span {
+    color: var(--accent);
+    font-weight: 500;
+}
+.artist-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+.artist-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: "DM Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 5px 11px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.18s;
+    text-transform: uppercase;
+    user-select: none;
+}
+.artist-pill:hover {
+    border-color: var(--accent);
+    color: var(--text);
+}
+.artist-pill.selected {
+    background: rgba(232, 52, 90, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.artist-pill.clear-all {
+    border-color: var(--border);
+    color: var(--text-dim);
+    font-style: italic;
+}
+.artist-pill.clear-all:hover {
+    border-color: #f5c842;
+    color: #f5c842;
+}
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+.modal-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+    width: 520px;
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    transform: translateY(12px);
+    transition: transform 0.2s;
+}
+.modal-overlay.open .modal-box {
+    transform: translateY(0);
+}
+.modal-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+.modal-title {
+    font-family: "Source Serif 4", serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+    line-height: 1.3;
+}
+.modal-subtitle {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+}
+.modal-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 2px;
+    transition: all 0.15s;
+}
+.modal-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.modal-body {
+    overflow-y: auto;
+    padding: 12px 24px 20px;
+}
+.modal-track-list {
+    list-style: none;
+}
+.modal-track-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(42, 42, 53, 0.5);
+}
+.modal-track-item:last-child {
+    border-bottom: none;
+}
+.modal-track-num {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--muted);
+    width: 20px;
+    flex-shrink: 0;
+}
+.modal-track-name {
+    font-size: 13px;
+    color: var(--text);
+    flex: 1;
+}
+.modal-track-artist {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+}
+.comparison-panel {
+    margin-top: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+}
+.comparison-heading {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.comparison-heading span {
+    color: var(--accent);
+}
+.comparison-slots {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+.comp-slot {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 10px 14px;
+    min-width: 160px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.comp-slot.empty {
+    border-style: dashed;
+    color: var(--muted);
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+}
+.comp-slot-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.comp-slot-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+}
+.comp-slot-artist {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+}
+.comp-slot-val {
+    font-family: "DM Mono", monospace;
+    font-size: 14px;
+    font-weight: 500;
+}
+.comp-slot-remove {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+    transition: color 0.15s;
+}
+.comp-slot-remove:hover {
+    color: var(--accent);
+}
+.comp-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.comp-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.comp-bar-label {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    width: 130px;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.comp-bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+}
+.comp-bar-fill {
+    height: 100%;
+    border-radius: 1px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.comp-bar-val {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    width: 36px;
+    text-align: right;
+}
+.comp-hint {
+    font-family: "DM Mono", monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
 }

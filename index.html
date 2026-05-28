@@ -1,85 +1,98 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <title>Inside the Noise — Metalcore Deep Dive</title>
         <link
-            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,700;1,8..60,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,700;1,8..60,700&amp;family=DM+Mono:wght@300;400;500&amp;family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&amp;display=swap"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="style.css" />
+        <link href="style.css" rel="stylesheet" />
     </head>
     <body>
         <header>
             <div class="header-left">
                 <div class="label">Spotify Tracks Dataset · 1000 tracks</div>
-                <div class="title">Inside<br />the <span>Noise</span></div>
+                <div class="title">
+                    Inside
+                    <br />
+                    the
+                    <span> Noise </span>
+                </div>
             </div>
             <div class="header-stats">
                 <div class="stat-block">
                     <div class="stat-value">0.914</div>
                     <div class="stat-label">
-                        Avg. Energy<br />#1 of 114 genres
+                        Avg. Energy
+                        <br />
+                        #1 of 114 genres
                     </div>
                 </div>
                 <div class="stat-block">
                     <div class="stat-value">0.315</div>
-                    <div class="stat-label">Avg. Valence<br />Bottom 5</div>
+                    <div class="stat-label">
+                        Avg. Valence
+                        <br />
+                        Bottom 5
+                    </div>
                 </div>
                 <div class="stat-block">
                     <div class="stat-value">
-                        −4.5<small style="font-size: 20px">dB</small>
+                        −4.5
+                        <small class="stat-unit"> dB </small>
                     </div>
                     <div class="stat-label">Avg. Loudness</div>
                 </div>
                 <div class="stat-block">
                     <div class="stat-value">
-                        29.1<small style="font-size: 20px">%</small>
+                        29.1
+                        <small class="stat-unit"> % </small>
                     </div>
                     <div class="stat-label">Explicit Tracks</div>
                 </div>
             </div>
         </header>
-
         <nav>
             <button class="active" data-panel="scatter">
-                01 · Energy vs Emotion
+                04 · Energy vs Emotion
             </button>
-            <button data-panel="sankey">02 · Path to Popularity</button>
-            <button data-panel="slope">03 · DNA of Top Tracks</button>
-            <button data-panel="top10">04 · Top 10 Songs</button>
+            <button data-panel="sankey">05 · Path to Popularity</button>
+            <button data-panel="slope">06 · DNA of Top Tracks</button>
+            <button data-panel="top10">07 · Top 10 Songs</button>
         </nav>
-
         <!-- SCATTER -->
-        <section id="panel-scatter" class="panel active">
+        <section class="panel active" id="panel-scatter">
             <div class="panel-header">
-                <span class="panel-num">01</span
-                ><span class="panel-title">Energy vs Emotion</span>
+                <span class="panel-num"> 04 </span>
+                <span class="panel-title"> Energy vs Emotion </span>
             </div>
             <p class="panel-desc">
                 Distribution of 1,000 tracks by energy vs. valence. Color =
                 tempo group. Diamond = explicit. Real Spotify data.
             </p>
             <div class="insight">
-                <strong
-                    >Metalcore tracks overwhelmingly cluster at high energy
-                    (0.8–1.0)</strong
-                >
+                <strong>
+                    Metalcore tracks overwhelmingly cluster at high energy
+                    (0.8–1.0)
+                </strong>
                 while valence skews low (0.0–0.4), confirming the genre's
                 intense yet emotionally dark character. Explicit tracks spread
                 across all valence ranges.
             </div>
+            <div class="artist-filter-wrap">
+                <div class="artist-filter-header">
+                    <span class="artist-filter-label"> Artist Filter </span>
+                    <div class="track-count-badge">
+                        <span id="trackCountVal"> 1000 </span>
+                        tracks visible
+                    </div>
+                </div>
+                <div class="artist-pills" id="artistFilterWrap"></div>
+            </div>
             <div class="controls">
-                <span
-                    style="
-                        font-family: &quot;DM Mono&quot;, monospace;
-                        font-size: 10px;
-                        color: var(--text-dim);
-                        letter-spacing: 0.1em;
-                    "
-                    >TEMPO</span
-                >
+                <span class="control-label"> TEMPO </span>
                 <button class="ctrl-btn on" data-filter="all">All</button>
                 <button class="ctrl-btn" data-filter="slow">
                     Slow &lt;100
@@ -89,77 +102,70 @@
                     Fast &gt;145
                 </button>
                 <div class="ctrl-sep"></div>
-                <span
-                    style="
-                        font-family: &quot;DM Mono&quot;, monospace;
-                        font-size: 10px;
-                        color: var(--text-dim);
-                        letter-spacing: 0.1em;
-                    "
-                    >LYRICS</span
-                >
+                <span class="control-label"> LYRICS </span>
                 <button class="ctrl-btn on" data-lfilter="all">All</button>
                 <button class="ctrl-btn" data-lfilter="clean">Clean</button>
                 <button class="ctrl-btn" data-lfilter="explicit">
                     Explicit
                 </button>
             </div>
-            <div class="chart-wrap"><canvas id="scatterCanvas"></canvas></div>
+            <div class="chart-wrap">
+                <canvas id="scatterCanvas"> </canvas>
+            </div>
         </section>
-
         <!-- SANKEY -->
-        <section id="panel-sankey" class="panel">
+        <section class="panel" id="panel-sankey">
             <div class="panel-header">
-                <span class="panel-num">02</span
-                ><span class="panel-title">Path to Popularity</span>
+                <span class="panel-num"> 05 </span>
+                <span class="panel-title"> Path to Popularity </span>
             </div>
             <p class="panel-desc">
                 Flow of 1,000 tracks across tempo, emotional valence tier,
                 lyrical content, and popularity tier.
             </p>
             <div class="insight">
-                <strong>Mid-tempo dominates (479 tracks)</strong> and flows
-                primarily into dark emotion. Despite only 29% being explicit,
-                <strong
-                    >explicit tracks punch above their weight in HIGH
-                    POP</strong
-                >
+                <strong> Mid-tempo dominates (479 tracks) </strong>
+                and flows primarily into dark emotion. Despite only 29% being
+                explicit,
+                <strong>
+                    explicit tracks punch above their weight in HIGH POP
+                </strong>
                 — 132 of 365 high-pop tracks are explicit (36%), vs only 233
                 clean tracks reaching high pop.
             </div>
-            <div class="chart-wrap"><canvas id="sankeyCanvas"></canvas></div>
+            <div class="chart-wrap">
+                <canvas id="sankeyCanvas"> </canvas>
+            </div>
         </section>
-
         <!-- SLOPE -->
-        <section id="panel-slope" class="panel">
+        <section class="panel" id="panel-slope">
             <div class="panel-header">
-                <span class="panel-num">03</span
-                ><span class="panel-title">DNA of Top Tracks</span>
+                <span class="panel-num"> 06 </span>
+                <span class="panel-title"> DNA of Top Tracks </span>
             </div>
             <p class="panel-desc">
                 Audio feature profiles of the 10 most popular tracks across 5
                 normalized dimensions.
             </p>
             <div class="insight">
-                <strong
-                    >All top tracks cluster at very high energy
-                    (0.82–0.94)</strong
-                >. Speechiness is uniformly low; danceability varies more than
+                <strong>
+                    All top tracks cluster at very high energy (0.82–0.94)
+                </strong>
+                . Speechiness is uniformly low; danceability varies more than
                 expected. Loudness and valence differentiate the tracks most
                 clearly.
             </div>
-
             <div class="slope-layout">
                 <div class="chart-wrap slope-chart">
-                    <canvas id="slopeCanvas"></canvas>
+                    <canvas id="slopeCanvas"> </canvas>
                 </div>
-
                 <aside class="audio-features-panel">
                     <h3 class="af-heading">Audio Features</h3>
                     <div class="af-card">
                         <div class="af-item" data-dim="loudness">
                             <div class="af-title">
-                                <span class="af-icon">🔊</span> Loudness
+                                <span class="af-icon"> 🔊 </span>
+                                Loudness
                             </div>
                             <div class="af-body">
                                 The overall amplitude of a track, measured in
@@ -171,10 +177,10 @@
                                 compressed production styles.
                             </div>
                         </div>
-
                         <div class="af-item" data-dim="valence">
                             <div class="af-title">
-                                <span class="af-icon">😊</span> Valence
+                                <span class="af-icon"> 😊 </span>
+                                Valence
                             </div>
                             <div class="af-body">
                                 A measure of musical positivity.
@@ -185,10 +191,10 @@
                                 moody, or tense.
                             </div>
                         </div>
-
                         <div class="af-item" data-dim="energy">
                             <div class="af-title">
-                                <span class="af-icon">⚡</span> Energy
+                                <span class="af-icon"> ⚡ </span>
+                                Energy
                             </div>
                             <div class="af-body">
                                 A measure of intensity and activity in a track.
@@ -199,10 +205,10 @@
                                 and more relaxed.
                             </div>
                         </div>
-
                         <div class="af-item" data-dim="speechiness">
                             <div class="af-title">
-                                <span class="af-icon">🎙</span> Speechiness
+                                <span class="af-icon"> 🎙 </span>
+                                Speechiness
                             </div>
                             <div class="af-body">
                                 The presence of spoken words in a track.
@@ -213,10 +219,10 @@
                                 tracks.
                             </div>
                         </div>
-
                         <div class="af-item" data-dim="danceability">
                             <div class="af-title">
-                                <span class="af-icon">🕺</span> Danceability
+                                <span class="af-icon"> 🕺 </span>
+                                Danceability
                             </div>
                             <div class="af-body">
                                 A measure of how suitable a track is for
@@ -230,47 +236,65 @@
                         </div>
                     </div>
                 </aside>
+                <div class="comparison-panel">
+                    <div class="comparison-heading">
+                        Audio Feature Comparison
+                        <span> (max 3 tracks · click chart lines) </span>
+                    </div>
+                    <div class="comparison-slots" id="compSlots"></div>
+                    <div class="comp-bar-wrap" id="compBars"></div>
+                </div>
             </div>
         </section>
-
         <!-- TOP 10 -->
-        <section id="panel-top10" class="panel">
+        <section class="panel" id="panel-top10">
             <div class="panel-header">
-                <span class="panel-num">04</span
-                ><span class="panel-title">Top 10 Songs</span>
+                <span class="panel-num"> 07 </span>
+                <span class="panel-title"> Top 10 Songs </span>
             </div>
             <p class="panel-desc">
                 Ranked by Spotify popularity score (0–100) from the dataset.
             </p>
             <div class="insight">
-                <strong>Bring Me The Horizon dominates the top 10</strong>,
-                claiming 5 of the 10 spots — more than any other artist.
-                <strong>6 of the top 10 tracks are explicit</strong>, despite
-                explicit tracks making up only 29% of the full dataset,
-                suggesting bolder lyrical content correlates with higher
-                streaming engagement. The top track,
-                <strong>Can You Feel My Heart</strong>, scores 81 — nearly 10
-                points above the #10 entry, reflecting a clear popularity cliff
-                at the very top.
+                <strong> Bring Me The Horizon dominates the top 10 </strong>
+                , claiming 5 of the 10 spots — more than any other artist.
+                <strong> 6 of the top 10 tracks are explicit </strong>
+                , despite explicit tracks making up only 29% of the full
+                dataset, suggesting bolder lyrical content correlates with
+                higher streaming engagement. The top track,
+                <strong> Can You Feel My Heart </strong>
+                , scores 81 — nearly 10 points above the #10 entry, reflecting a
+                clear popularity cliff at the very top.
             </div>
-            <div class="chart-wrap" style="padding: 0; overflow: hidden">
+            <div class="chart-wrap chart-wrap-flush">
                 <table class="top10-table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Track</th>
-                            <th style="text-align: right; padding-right: 24px">
-                                Popularity
-                            </th>
+                            <th class="top10-pop-heading">Popularity</th>
                         </tr>
                     </thead>
                     <tbody id="top10Body"></tbody>
                 </table>
             </div>
         </section>
-
+        <!-- SANKEY MODAL -->
+        <div class="modal-overlay" id="sankeyModal">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <div>
+                        <div class="modal-title" id="modalTitle"></div>
+                        <div class="modal-subtitle" id="modalSubtitle"></div>
+                    </div>
+                    <button class="modal-close" id="modalClose">✕</button>
+                </div>
+                <div class="modal-body">
+                    <ul class="modal-track-list" id="modalTrackList"></ul>
+                </div>
+            </div>
+        </div>
         <div class="tooltip" id="tooltip"></div>
-
         <footer class="site-footer">
             <div class="footer-inner">
                 <div class="footer-left">
@@ -280,12 +304,12 @@
                     </div>
                 </div>
                 <div class="footer-center">
-                    <span class="footer-dataset-label">Reference</span>
+                    <span class="footer-dataset-label"> Dataset </span>
                     <a
                         class="footer-dataset-link"
                         href="https://www.kaggle.com/datasets/yashdev01/spotify-tracks-dataset"
-                        target="_blank"
                         rel="noopener"
+                        target="_blank"
                     >
                         Spotify Tracks Dataset — Kaggle
                     </a>
@@ -298,13 +322,12 @@
                 </div>
                 <div class="footer-right">
                     <div class="footer-built">
-                        DECO7220 | Interactive Data Visualization<br />
+                        DECO7220 | Interactive Visualisation
                     </div>
                     <div class="footer-year">© 2026</div>
                 </div>
             </div>
         </footer>
-
-        <script src="main.js"></script>
+        <script src="script.js"></script>
     </body>
 </html>
